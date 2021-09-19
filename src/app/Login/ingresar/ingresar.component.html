@@ -1,0 +1,40 @@
+
+
+<div  class="lite-blue-bg" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;">
+    <div class="middle-box text-center animated fadeInDown" style="max-width:800px;position:relative">
+        <img src="http://sistemas.atu.gob.pe/plataformavirtual/Imagen/norma.png" class="img-responsive norma" width="300px" />
+        <img src="http://sistemas.atu.gob.pe/plataformavirtual/Imagen/antonio.png" class="img-responsive antonio" width="290px" />
+        <div class="middle-box text-center loginscreen" style="width:350px;position:relative">
+            <div style="padding:0 25px;background:#014E96">
+                <div class="logo-name" style="font-size:100px">
+                    <img src="http://sistemas.atu.gob.pe/plataformavirtual/Imagen/logo_HOME_290x163.png" alt="" width="200" />
+                </div>
+                <h3 style="font-weight:600;font-size:26px;margin-bottom:5px;margin-top:5px;" class="text-white">¡Bienvenido!</h3>
+                <p style="font-size:14px" class="text-white">a la plataforma de registro de actas<br /> para el transporte urbano<br />en Lima y Callao</p>
+                <div style="margin-top:20px;margin-bottom:40px">
+                    <form [formGroup] = 'formGroup' (ngSubmit)="onSubmit()" >
+                        <div class="form-group" style="padding-bottom: 15px;">
+                            <input type="text"class="form-control " formControlName="nombreusuario" value="" placeholder="Usuario" autocomplete="off" maxlength="50"   style="text-align:center" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password"  class="form-control" formControlName="claveusuario" value="" placeholder="Contraseña" autocomplete="off" maxlength="50"  style="text-align:center" />
+                        </div>
+
+                        <button type="submit" class="btn btn-sm btn-atu-login block full-width m-b ladda-button btn-info" 
+                        data-style="zoom-in" 
+                        id="btnIngresar" 
+                        style="margin-top:15px;margin-top: 15px; width: 100%; color: white; background-color: #10a2dd;">Ingresar</button>
+                      
+                        <br />
+                        <p class="text-white">
+                            <small>Para mayor información respecto al uso de esta plataforma, sírvase comunicarse a nuestro correo electrónico: <span style="font-weight:bold">consultastupa@atu.gob.pe</span></small>
+                        </p>
+                        <br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

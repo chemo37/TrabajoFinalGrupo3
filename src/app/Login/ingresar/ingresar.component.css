@@ -1,0 +1,45 @@
+a:hover {
+    font-weight: bold;
+    color: white;
+}
+
+.label-sm {
+    padding: 0;
+    font-size: 1.1rem;
+    margin-bottom: .5rem;
+}
+
+.modal-body {
+    padding: 20px 30px;
+}
+
+.form-group-sm {
+    padding: 6px 0px;
+}
+
+.antonio {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.norma {
+    position: absolute;
+    bottom: 0;
+    left: 26px;
+}
+
+.middle-box {
+    max-width: 400px;
+    z-index: 100;
+    margin: 0 auto;
+    padding-top: 25px;
+}
+
+.lite-blue-bg {
+    background: rgb(148,202,236);
+    background: linear-gradient(
+180deg
+, rgba(148,202,236,1) 80%, rgba(144,198,234,1) 85%, rgba(129,187,225,1) 90%, rgba(97,159,206,1) 95%, rgba(54,123,182,1) 100%);
+}
+

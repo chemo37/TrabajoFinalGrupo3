@@ -1,0 +1,36 @@
+
+
+<app-cabecera></app-cabecera>
+
+<br><br>
+<div class="container"> 
+    <h3 class="text-center">Lista de actas registradas</h3>
+    <br>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead style="background-color: #0d6efd; color: white;">
+                <tr>
+                    <th>N</th>
+                    <th>FECHA REG</th>
+                    <th>USUARIO REG</th>
+                    <th>CONDUCTOR</th>
+                    <th>PLACA</th>
+                    <th style="width:25px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of arractas; let i = index"  >
+                    <td>{{i +1 }}</td>
+                    <td>{{item.fecharegistro}}</td>
+                    <td>{{item.usuario}}</td>
+                    <td>{{item.conductorintervenido}}</td>
+                    <td>{{item.placa}}</td>
+                    <td>
+                        <span style="cursor: pointer">👁️</span>
+                        
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

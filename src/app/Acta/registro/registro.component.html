@@ -1,0 +1,254 @@
+<app-cabecera></app-cabecera>
+
+<br><br>
+<form [formGroup] = 'formGroup' (ngSubmit)="onSubmit()" class="container">
+    
+  <h2 class="text-left">REGISTRO DEL ACTA</h2>
+  <div class="row mb-3">
+    <div class="col-sm-7">
+        <a class="btn btn-primary" *ngIf="step != 1" (click)="regresarstep()"  >ANTERIOR</a>&nbsp;&nbsp;
+        <button type="submit"   class="btn btn-primary"  *ngIf="step != 3">SIGUIENTE</button>&nbsp;&nbsp;
+        <button type="submit"   class="btn btn-success" *ngIf="step == 3">REGISTRAR</button>
+    </div>
+</div>
+  <br>
+  <div *ngIf="step == 1">
+    <h3 class="text-left">Datos del intervenido</h3>
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Apellidos y nombres</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="intrvapellynomb"  class="form-control"   placeholder="">
+
+      </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Tipo de Documento</label>
+        <div class="col-sm-5">
+          <select formControlName="selectTipoDocumento"  class="form-select" aria-label="Default select example">
+            <option [ngValue]="null" disabled selected>.:Seleccionar el tipo de documento:.</option>
+            <option *ngFor="let item of arrtipodocumento"  value={{item.idtipodocumento}}>{{item.nombretipodocumento}}</option>
+
+          </select>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Numero documento</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="numdocumento"  class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Dirección</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="nombredireccion"  class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Distrito</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="distrito"  class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Empresa autorizada</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="empresaautorizada"  class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">RUC</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="numeroruc"  class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    
+  </div>
+
+  <div *ngIf="step == 2" >
+    <h3 class="text-left">Datos Vehiculo</h3>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Vehiculo autorizado</label>
+      <div class="col-sm-5" style="margin-top: 7px;">
+        <label class="form-check-label" for="radiobtnsi">
+          SI
+          &nbsp;
+        </label>
+        <input value="SI" class="form-check-input" formControlName="radiobtnsino"  type="radio"  id="radiobtnsi" checked >
+        &nbsp;&nbsp;&nbsp;
+        <label class="form-check-label" for="radiobtnno">
+          NO
+          &nbsp;
+        </label>
+        <input value="NO" class="form-check-input" formControlName="radiobtnsino"  type="radio"  id="radiobtnno" >
+      
+
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">N° de lic. de conducir</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="numlicenciaconducir"  class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Placa</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="numplaca"  class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Clase Categoría</label>
+        <div class="col-sm-5">
+          <select formControlName="selectclasecategoria"  class="form-select" aria-label="Default select example">
+            <option [ngValue]="null" disabled selected>.:Seleccionar clase y categoria:.</option>
+            <option *ngFor="let item of arrclasecategoria"  value={{item.idClasecategoria}}>{{item.nombre}}</option>
+
+          </select>
+        </div>
+    </div>
+  </div>
+
+  <div *ngIf="step == 3">
+    <h3 class="text-left">Datos de la infracción</h3>
+   
+
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Fecha infracción</label>
+        <div class="col-sm-5">
+            <input class="form-control"  formControlName="fechainfraccion"  type="text" mask="00/00/0000" placeholder="dd/mm/yyyy" />
+   
+        </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Direccion </label>
+      <div class="col-sm-5">
+          <input type="text" formControlName="direccioninfraccion"   class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Referencia </label>
+      <div class="col-sm-5">
+          <input type="text" formControlName="referenciainfraccion"   class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Distrito </label>
+      <div class="col-sm-5">
+          <input type="text" formControlName="distritoinfraccion"  class="form-control"   placeholder="">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Tipo infracción</label>
+      <div class="col-sm-5">
+        <select formControlName="selecttipoinfraccion"  (change)="onSelectTipoInfra($event.target.value)"  class="form-select" aria-label="Default select example">
+          <option [ngValue]="null" disabled selected>.:Seleccionar tipo infracción:.</option>
+          <option *ngFor="let item of arrtipoinfraccion"  value={{item.idtipoinfraccion}}>{{item.nombretipo}}</option>
+
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Código infracción</label>
+      <div class="col-sm-5">
+        <select formControlName="selectcodigoinfraccion"  class="form-select" aria-label="Default select example">
+          <option [ngValue]="null" disabled selected>.:Seleccionar codigo infracción:.</option>
+          <option *ngFor="let item of arrcodigoinfraccion"  value={{item.idcodigoinfraccion}}>{{item.nombrecodigo}}</option>
+
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Medida preventiva</label>
+      <div class="col-sm-5">
+        <select formControlName="selectmedidapreventiva"  class="form-select" aria-label="Default select example">
+          <option [ngValue]="null" disabled selected>.:Seleccionar medida preventiva:.</option>
+          <option *ngFor="let item of arrmedidapreventiva"  value={{item.idmedidapreventiva}}>{{item.nombremedida}}</option>
+
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Observaciones/Manifestación</label>
+      <div class="col-sm-5">
+        <textarea formControlName="observacionmanifestac"  class="form-control"  rows="2"></textarea>
+      </div>
+    </div>
+
+    
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Descripción del hecho</label>
+      <div class="col-sm-5">
+        <textarea formControlName="descripcionhecho" class="form-control"  rows="2"></textarea>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-5">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Negativa de firma
+          &nbsp;
+        </label>
+        <input class="form-check-input" value="Negativa de firma" formControlName="negidentificarse" type="radio"  id="flexRadioDefault1" checked >
+        &nbsp;&nbsp;&nbsp;
+        <label class="form-check-label" for="constfuga">
+          Constancia de fuga
+          &nbsp;
+        </label>
+        <input class="form-check-input" value="Constancia de fuga"  formControlName="negidentificarse" type="radio"  id="constfuga" >
+        &nbsp;&nbsp;&nbsp;
+        <label class="form-check-label" for="negidentif">
+          Negativa a identificarse
+          &nbsp;
+        </label>
+        <input class="form-check-input"  value="Negativa a identificarse" formControlName="negidentificarse" type="radio"  id="negidentif" >
+      </div>
+    </div>
+    
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Negativa de entrega de documentos</label>
+      <div class="col-sm-5">
+        <label class="form-check-label" for="negativalicconducir">
+          LIC. Conducir
+          &nbsp;
+        </label>
+        <input class="form-check-input" value="LIC. Conducir" type="radio" formControlName="radionegativadoc"  id="negativalicconducir" checked >
+        &nbsp;&nbsp;&nbsp;
+        <label class="form-check-label" for="negativatuc">
+          TUC
+          &nbsp;
+        </label>
+        <input class="form-check-input" value="TUC"  type="radio" formControlName="radionegativadoc" id="negativatuc" >
+        &nbsp;&nbsp;&nbsp;
+        <label class="form-check-label" for="negativadni">
+          DNI
+          &nbsp;
+        </label>
+        <input class="form-check-input" value="DNI" type="radio" formControlName="radionegativadoc" id="negativadni" >
+      </div>
+    </div>
+  </div>
+
+ 
+  
+</form>

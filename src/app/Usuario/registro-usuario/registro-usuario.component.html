@@ -1,0 +1,87 @@
+<app-cabecera></app-cabecera>
+
+<br><br>
+  <form [formGroup] = 'formGroup' (ngSubmit)="onSubmit()" class="container">
+      
+
+    <h2 class="text-left">REGISTRO <span class="text-right" style="float: right;">USUARIOS</span></h2>
+    <br>
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Tipo de documento</label>
+        <div class="col-sm-5">
+            <select formControlName="seltipodocumento" class="form-select" aria-label="Default select example">
+              <option [ngValue]="null" disabled>.:Seleccionar el tipo de documento:.</option>
+
+              <option *ngFor="let item of arrtipodocumento"  value={{item.idtipodocumento}}>{{item.nombretipodocumento}}</option>
+            </select>
+        </div>
+        <div class="col-sm-5">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>N</th>
+                        <th>USUARIO</th>
+                        <th>PERFIL</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Número documento</label>
+        <div class="col-sm-5">
+            <input type="text" formControlName="numdocumento"  class="form-control"   placeholder="">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Apellidos</label>
+        <div class="col-sm-5">
+            <input type="text" formControlName="apellidos"  class="form-control"   placeholder="">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Nombres</label>
+        <div class="col-sm-5">
+            <input type="text" formControlName="nombres" class="form-control"   placeholder="">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Perfil</label>
+        <div class="col-sm-5">
+          
+
+            <select formControlName="perfilusuario"  class="form-select" aria-label="Default select example">
+              <option [ngValue]="null" disabled>.:Seleccionar el perfil:.</option>
+                <option *ngFor="let item of arrtipoperfil" 
+                        value={{item.idusuarioperfil}}
+                >{{item.nombre}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Usuario</label>
+        <div class="col-sm-5">
+            <input type="text" formControlName="nombreusuario" class="form-control"   placeholder="">
+        </div>
+    </div>
+
+    
+    <div class="row mb-3">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Contraseña</label>
+        <div class="col-sm-5">
+            <input type="password" formControlName="claveusuario"  class="form-control"   placeholder="">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-sm-7">
+            <button type="submit" style="width: 100%;"  class="btn btn-primary">Registrar</button>
+        </div>
+    </div>
+    
+  </form>
