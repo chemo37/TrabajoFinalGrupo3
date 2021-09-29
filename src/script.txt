@@ -1,0 +1,494 @@
+CREATE TABLE TM_USUARIO
+
+(
+
+	IDUSUARIO INT PRIMARY KEY IDENTITY(1,1),
+
+	LOGINUSUARIO VARCHAR(64) NOT NULL,
+
+	PASSWORDUSUARIO VARCHAR(128) NOT NULL,
+
+	IDPERFIL INT NOT NULL,
+
+	NOMBRES VARCHAR(128),
+
+	APELLIDOPATERNO VARCHAR(64),
+
+	APELLIDOMATERNO VARCHAR(64),
+
+	DOCUMENTOIDENTIDAD VARCHAR(16),
+
+	ACTIVO BIT,
+
+	USUARIOCREA INT,
+
+	USUARIOMODIFICA INT,
+
+	FECHACREA DATETIME,
+
+	FECHAMODIFICA DATETIME
+
+)
+
+ENITDAD USUAIRO
+using System;
+
+using System.Collections.Generic;
+
+using System.Text;
+
+
+
+namespace DBEntity
+
+{
+
+	public class EntityUser : EntityBase
+
+	{
+
+		public int idusuario { get; set; }
+
+		public string loginusuario { get; set; }
+
+		public string passwordusuario { get; set; }
+
+		public int idperfil { get; set; }
+
+		public string nombres { get; set; }
+
+		public string apellidopaterno { get; set; }
+
+		public string apellidomaterno { get; set; }
+
+		public string documentoidentidad { get; set; }
+
+	}
+
+}
+
+ENTIDAD LOGIN
+using System;
+
+using System.Collections.Generic;
+
+using System.Text;
+
+
+
+namespace DBEntity
+
+{
+
+  public class EntityLogin
+
+  {
+
+    public string loginusuario { get; set; }
+
+    public string passwordusuario { get; set; }
+
+  }
+
+}
+
+ENTIDAD RPTA LOGIN
+using System;
+
+using System.Collections.Generic;
+
+using System.Text;
+
+
+
+namespace DBEntity
+
+{
+
+  public class EntityLoginResponse
+
+  {
+
+    public int idusuario { get; set; }
+
+    public int idperfil { get; set; }
+
+    public string nombres { get; set; }
+
+    public string apellidopaterno { get; set; }
+
+    public string apellidomaterno { get; set; }
+
+    public string documentoidentidad { get; set; }
+
+    public string token { get; set; }
+
+  }
+
+}
+
+INSERT REPOSITORY
+using Dapper;
+
+using DBEntity;
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Data;
+
+using System.Linq;
+
+using System.Text;
+
+
+
+namespace DBContext
+
+{
+
+  public class UserRepository : BaseRepository, IUserRepository
+
+  {
+
+    public BaseResponse Insert(EntityUser user)
+
+    {
+
+      var returnEntity = new BaseResponse();
+
+
+
+      try
+
+      {
+
+        using (var db = GetSqlConnection())
+
+        {
+
+          const string sql = @"usp_InsertarUuario";
+
+
+
+          var p = new DynamicParameters();
+
+          p.Add(name: "@IDUSUARIO", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+          p.Add(name: "@LOGINUSUARIO", value: user.loginusuario, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@PASSWORDUSUARIO", value: user.passwordusuario, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@IDPERFIL", value: user.idperfil, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+          p.Add(name: "@NOMBRES", value: user.nombres, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@APELLIDOPATERNO", value: user.apellidopaterno, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@APELLIDOMATERNO", value: user.apellidomaterno, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@DOCUMENTOIDENTIDAD", value: user.documentoidentidad, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@USUARIOCREA", value: user.UsuarioCrea, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+
+
+          db.Query<EntityUser>(sql: sql, param: p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+
+
+          int idusuario = p.Get<int>("@IDUSUARIO");
+
+
+
+          if(idusuario > 0)
+
+          {
+
+            returnEntity.isSuccess = true;
+
+            returnEntity.errorCode = "0000";
+
+            returnEntity.errorMessage = string.Empty;
+
+            returnEntity.data = new { 
+
+              id = idusuario,
+
+              nombre = user.nombres
+
+            };
+
+          }
+
+          else
+
+          {
+
+            returnEntity.isSuccess = false;
+
+            returnEntity.errorCode = "0000";
+
+            returnEntity.errorMessage = string.Empty;
+
+            returnEntity.data = null;
+
+          }
+
+        }
+
+      }
+
+      catch(Exception ex)
+
+      {
+
+        returnEntity.isSuccess = false;
+
+        returnEntity.errorCode = "0001";
+
+        returnEntity.errorMessage = ex.Message;
+
+        returnEntity.data = null;
+
+      }
+
+
+
+      return returnEntity;
+
+    }
+
+
+
+    public BaseResponse Login(EntityLogin login)
+
+    {
+
+      var returnEntity = new BaseResponse();
+
+      var entityUser = new EntityLoginResponse();
+
+
+
+      try
+
+      {
+
+        using (var db = GetSqlConnection())
+
+        {
+
+          const string sql = @"usp_user_login";
+
+
+
+          var p = new DynamicParameters();
+
+          p.Add(name: "@LOGINUSUARIO", value: login.loginusuario, dbType: DbType.String, direction: ParameterDirection.I
+
+insert
+public BaseResponse Insert(EntityUser user)
+
+    {
+
+      var returnEntity = new BaseResponse();
+
+
+
+      try
+
+      {
+
+        using (var db = GetSqlConnection())
+
+        {
+
+          const string sql = @"usp_InsertarUuario";
+
+
+
+          var p = new DynamicParameters();
+
+          p.Add(name: "@IDUSUARIO", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+          p.Add(name: "@LOGINUSUARIO", value: user.loginusuario, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@PASSWORDUSUARIO", value: user.passwordusuario, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@IDPERFIL", value: user.idperfil, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+          p.Add(name: "@NOMBRES", value: user.nombres, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@APELLIDOPATERNO", value: user.apellidopaterno, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@APELLIDOMATERNO", value: user.apellidomaterno, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@DOCUMENTOIDENTIDAD", value: user.documentoidentidad, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@USUARIOCREA", value: user.UsuarioCrea, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+
+
+          db.Query<EntityUser>(sql: sql, param: p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+
+
+          int idusuario = p.Get<int>("@IDUSUARIO");
+
+
+
+          if(idusuario > 0)
+
+          {
+
+            returnEntity.isSuccess = true;
+
+            returnEntity.errorCode = "0000";
+
+            returnEntity.errorMessage = string.Empty;
+
+            returnEntity.data = new { 
+
+              id = idusuario,
+
+              nombre = user.nombres
+
+            };
+
+          }
+
+          else
+
+          {
+
+            returnEntity.isSuccess = false;
+
+            returnEntity.errorCode = "0000";
+
+            returnEntity.errorMessage = string.Empty;
+
+            returnEntity.data = null;
+
+          }
+
+        }
+
+      }
+
+      catch(Exception ex)
+
+      {
+
+        returnEntity.isSuccess = false;
+
+        returnEntity.errorCode = "0001";
+
+        returnEntity.errorMessage = ex.Message;
+
+        returnEntity.data = null;
+
+      }
+
+
+
+      return returnEntity;
+
+    }
+
+20:24
+.
+
+20:24
+.
+
+20:24
+.
+
+20:24
+public BaseResponse Login(EntityLogin login)
+
+    {
+
+      var returnEntity = new BaseResponse();
+
+      var entityUser = new EntityLoginResponse();
+
+
+
+      try
+
+      {
+
+        using (var db = GetSqlConnection())
+
+        {
+
+          const string sql = @"usp_user_login";
+
+
+
+          var p = new DynamicParameters();
+
+          p.Add(name: "@LOGINUSUARIO", value: login.loginusuario, dbType: DbType.String, direction: ParameterDirection.Input);
+
+          p.Add(name: "@PASSWORDUSUARIO", value: login.passwordusuario, dbType: DbType.String, direction: ParameterDirection.Input);
+
+
+
+          entityUser = db.Query<EntityLoginResponse>(sql: sql, param: p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+
+
+          if(entityUser != null)
+
+          {
+
+            returnEntity.isSuccess = true;
+
+            returnEntity.errorCode = "0000";
+
+            returnEntity.errorMessage = string.Empty;
+
+            returnEntity.data = entityUser;
+
+          }
+
+          else
+
+          {
+
+            returnEntity.isSuccess = false;
+
+            returnEntity.errorCode = "0000";
+
+            returnEntity.errorMessage = string.Empty;
+
+            returnEntity.data = null;
+
+          }
+
+        }
+
+      }
+
+      catch(Exception ex)
+
+      {
+
+        returnEntity.isSuccess = false;
+
+        returnEntity.errorCode = "0001";
+
+        returnEntity.errorMessage = ex.Message;
+
+        returnEntity.data = null;
+
+      }
+
+
+
+      return returnEntity;
+
+    }

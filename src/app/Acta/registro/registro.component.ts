@@ -19,8 +19,10 @@ export class RegistroComponent implements OnInit {
   arrtipoinfraccion : any;
   arrcodigoinfraccion : any;
   arrmedidapreventiva : any;
-
+  selectedDate :any;
   usuarioactual : any;
+
+  textotarifapropuesta = null;
 
   constructor(
     private router: Router, 
@@ -56,6 +58,7 @@ export class RegistroComponent implements OnInit {
       numplaca: new FormControl(null, [Validators.required]),
       selectclasecategoria: new FormControl(null, [Validators.required]),
       fechainfraccion: new FormControl(null, [Validators.required]),
+      fechainfraccionSelect : new FormControl(null, [Validators.required]),
       direccioninfraccion: new FormControl(null, [Validators.required]),
       referenciainfraccion: new FormControl(null, [Validators.required]),
       distritoinfraccion: new FormControl(null, [Validators.required]),
@@ -70,17 +73,66 @@ export class RegistroComponent implements OnInit {
     })
   }
 
+
+  buscarplacaautorizada(){
+
+    var placabusqueda =(this.datosForm.numplaca.value ? this.datosForm.numplaca.value.trim() : null ); 
+    
+    if(!placabusqueda){
+      // return false;
+      this.toastr.error('Debe ingresar una placa válida', 'Alerta!');
+
+    }else{
+      this.datosService.getVehiculoAutorizado(placabusqueda).subscribe(result => {
+        if(!result.placa){
+          this.toastr.error('No se ha encontrado información', 'Alerta!');
+
+        }else{
+          this.datosForm.numplaca.setValue(result.placa);
+          this.datosForm.selectclasecategoria.setValue(result.clase);
+        }
+
+      })
+    }
+
+  }
+
+  buscarconductorautorizado(){
+    var nrodocumento = (this.datosForm.numdocumento.value ? this.datosForm.numdocumento.value.trim() : null );
+
+    if(!nrodocumento){
+      this.toastr.error('Debe ingresar un número de documento válido', 'Alerta!');
+
+    }else{
+      this.datosService.getConductorAutorizado(nrodocumento).subscribe(result => {
+        
+        if(!result.nrodocumento){
+          this.toastr.error('No se ha encontrado información', 'Alerta!');
+
+        }else{
+          this.datosForm.intrvapellynomb.setValue(result.apellidosynombres);
+          this.datosForm.nombredireccion.setValue(result.direccion);
+          this.datosForm.distrito.setValue(result.distrito);
+          this.datosForm.numlicenciaconducir.setValue(result.nrolicenciaconducir);
+        }
+        
+        // this.datosForm.selectTipoDocumento.setValue(result.tipodocumento);
+
+      })
+    }
+    
+  }
+
   listarTipoDocumento(){
 
     this.datosService.listatipodocumento().subscribe(result => {
-      console.log("listatipodocumento->", result);
       this.arrtipodocumento = result;
     })
+
   }
 
   getclasecategoria(){
     this.datosService.listaclasecategoria().subscribe(result => {
-      console.log("listaclasecategoria->", result);
       this.arrclasecategoria = result;
     })
   }
@@ -88,7 +140,6 @@ export class RegistroComponent implements OnInit {
   onSelectTipoInfra(idtipoinfraccion:any){
 
     this.datosService.listacodigoinfraccion(idtipoinfraccion).subscribe(result => {
-      
       this.arrcodigoinfraccion = result;
     })
   }
@@ -96,7 +147,6 @@ export class RegistroComponent implements OnInit {
 
   gettipoInfraccion(){
     this.datosService.listatipoinfraccion().subscribe(result => {
-      console.log("listatipoinfraccion->", result);
       this.arrtipoinfraccion = result;
     })
   }
@@ -104,7 +154,6 @@ export class RegistroComponent implements OnInit {
   getcodigoinfraccion(){
 
     this.datosService.listacodigoinfraccion(1).subscribe(result => {
-      console.log("listacodigoinfraccion->", result);
       this.arrcodigoinfraccion = result;
     })
 
@@ -112,7 +161,6 @@ export class RegistroComponent implements OnInit {
 
   getmedidapreventiva(){
     this.datosService.listamedidapreventiva().subscribe(result => {
-      console.log("listamedidapreventiva->", result);
       this.arrmedidapreventiva = result;
     })
   }
@@ -121,6 +169,12 @@ export class RegistroComponent implements OnInit {
     
     if(this.step == 3){
 
+
+      var fechaseleccionada : Date = new Date(this.selectedDate);
+      // console.log("fechaseleccionada", this.selectedDate);
+      var fechaformateada_ = (fechaseleccionada ?  (fechaseleccionada.getDate() < 10 ? '0' + fechaseleccionada.getDate() : fechaseleccionada.getDate() )  + '/' + (fechaseleccionada.getMonth()<10 ? '0' + fechaseleccionada.getMonth(): fechaseleccionada.getMonth() ) +'/' + fechaseleccionada.getFullYear() : '');
+
+      this.datosForm.fechainfraccionSelect.setValue(!this.selectedDate ? '' : fechaformateada_);
       var intrvapellynomb = this.datosForm.intrvapellynomb.value;
       var selectTipoDocumento  = this.datosForm.selectTipoDocumento.value;
       var numdocumento = this.datosForm.numdocumento.value;
@@ -132,6 +186,7 @@ export class RegistroComponent implements OnInit {
       var numplaca = this.datosForm.numplaca.value;
       var selectclasecategoria = this.datosForm.selectclasecategoria.value;
       var fechainfraccion = this.datosForm.fechainfraccion.value;
+      var fechainfraccionselect = this.datosForm.fechainfraccionSelect.value;
       var direccioninfraccion = this.datosForm.direccioninfraccion.value;
       var referenciainfraccion = this.datosForm.referenciainfraccion.value;
       var distritoinfraccion = this.datosForm.distritoinfraccion.value;
@@ -148,13 +203,15 @@ export class RegistroComponent implements OnInit {
         //   empresaautorizada,numeroruc,numlicenciaconducir,numplaca,selectclasecategoria,
         //   fechainfraccion,direccioninfraccion,referenciainfraccion,distritoinfraccion,
         //   selecttipoinfraccion,selectcodigoinfraccion,selectmedidapreventiva,observacionmanifestac,descripcionhecho,isvehiculoautorizado,negidentificarse, radionegativadoc)
-        console.log("selectTipoDocumento",selectTipoDocumento);
+        // console.log("fechainfraccion----->",fechainfraccion);
+        // console.log("fechainfraccionselect-->", fechainfraccionselect);
+   
         if (this.formGroup.invalid) {
           this.toastr.error('Verificar los datos ingresados', 'Información!');
           return;
         }else{
           var datosusuario = this.accesoService.getDatosAcceso();
-          var fechaformateada = fechainfraccion.substring(0,2)  + "/" +  fechainfraccion.substring(2,4) + "/" + fechainfraccion.substring(4,8) ;
+          var fechaformateada = fechainfraccionselect;//fechainfraccion.substring(0,2)  + "/" +  fechainfraccion.substring(2,4) + "/" + fechainfraccion.substring(4,8) ;
 
             let dataacta = {
               fecharegistro : "",
@@ -184,7 +241,6 @@ export class RegistroComponent implements OnInit {
             }
     
           this.actaService.registroActa(dataacta).subscribe(result => {
-            console.log("resultado->", result);
     
             if(result.codigoResultado > 0){
               this.toastr.success('Registró OK', 'Información!');
@@ -202,12 +258,16 @@ export class RegistroComponent implements OnInit {
     
   }
 
+  dateSelected(event){
+    // this.datosForm.fechainfraccion.sele
+    //this.datosForm.distrito.setValue(result.distrito);
+  }
+
   regresarstep(){
     this.step = this.step - 1;
   }
 
   cerrarSesion(){
-    console.log("cierra")
     this.router.navigate([""]);
   }
 

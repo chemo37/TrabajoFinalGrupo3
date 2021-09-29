@@ -180,5 +180,75 @@ namespace ServiceActaControl.Controllers
             return result;
         }
 
+        [HttpPost]
+        [Route("listausuarios")] //http://localhost:44376/api/lista/listarobservacion
+
+        public List<UsuarioListaModel> listarUsuarios()
+        {
+            List<UsuarioListaModel> result = new List<UsuarioListaModel>();
+            DatosDAL datosDAL = new DatosDAL();
+            DataSet Ds = new DataSet();
+
+            Ds = datosDAL.listausuarios();
+
+            foreach (DataRow row in Ds.Tables[0].Rows)
+            {
+                UsuarioListaModel item = new UsuarioListaModel();
+                //
+                item.nombres = row["NOMBRES"].ToString();
+                item.numerodocumento = row["NRODOCUMENTO"].ToString();
+                item.usuario = row["USUARIO"].ToString();
+                item.perfil = row["PERFIL"].ToString();
+                //
+                result.Add(item);
+            }
+            return result;
+        }
+
+        [HttpPost]
+        [Route("getconductorautorizado")] //http://localhost:44376/api/lista/listarobservacion
+
+        public ConductorHabilitadoModel getconductorautorizado(ConductorAutorizadoReq consulta)
+        {
+            ConductorHabilitadoModel item = new ConductorHabilitadoModel();
+
+            DatosDAL datosDAL = new DatosDAL();
+            DataSet Ds = new DataSet();
+
+            Ds = datosDAL.getDataConductorHabilitado(consulta.nrodocumento);
+
+            foreach (DataRow row in Ds.Tables[0].Rows)
+            {
+                //
+                item.tipodocumento = row["tipodocumento"].ToString();
+                item.nrodocumento = row["nrodocumento"].ToString();
+                item.apellidosynombres = row["apellidosynombres"].ToString();
+                item.direccion = row["direccion"].ToString();
+                item.distrito = row["distrito"].ToString();
+                item.nrolicenciaconducir = row["nrolicenciaconducir"].ToString();
+                //
+            }
+            return item;
+        }
+
+        [HttpPost]
+        [Route("getplacahabilitada")] //http://localhost:44376/api/lista/listarobservacion
+        public PlacaHabilitadaModel getplacahabilitada(PlacaAutorizadaReq consulta)
+        {
+            PlacaHabilitadaModel item = new PlacaHabilitadaModel();
+            DatosDAL datosDAL = new DatosDAL();
+            DataSet Ds = new DataSet();
+            //
+            Ds = datosDAL.getDataVehiculoHabilitado(consulta.placa);
+            //
+            foreach (DataRow row in Ds.Tables[0].Rows)
+            {
+                item.placa = row["placa"].ToString();
+                item.clase = row["clase"].ToString();
+ 
+            }
+            return item;
+        }
+
     }
 }

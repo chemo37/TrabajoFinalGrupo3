@@ -180,6 +180,74 @@ namespace AD
             return Ds;
         }
 
+        public DataSet listausuarios()
+        {
+            string CadenaConexion = "Conexion";
+            SqlParameter[] Parametros = new SqlParameter[1];
+            DataSet Ds = new DataSet();
+            AD.ConexionSQL ObjSQL = new AD.ConexionSQL();
+            try
+            {
+                string Sql = "PROC_USUARIO_LISTA";
+                Parametros[0] = new SqlParameter("@IDTIPODOCUMENTO", System.Data.SqlDbType.Int);
+                Parametros[0].Value = 0;
+
+                ObjSQL.CadenaConexion = CadenaConexion;
+                Ds = ObjSQL.CargarDs(Sql, Parametros);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return Ds;
+        }
+
+
+        public DataSet getDataConductorHabilitado(string nrodocumento)
+        {
+            string CadenaConexion = "Conexion";
+            SqlParameter[] Parametros = new SqlParameter[1];
+            DataSet Ds = new DataSet();
+            AD.ConexionSQL ObjSQL = new AD.ConexionSQL();
+            try
+            {
+                string Sql = "PROC_GET_CONDUCTORHABILITADO";
+                Parametros[0] = new SqlParameter("@NRODOCUMENTO", System.Data.SqlDbType.VarChar);
+                Parametros[0].Value = nrodocumento;
+                //
+                ObjSQL.CadenaConexion = CadenaConexion;
+                Ds = ObjSQL.CargarDs(Sql, Parametros);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return Ds;
+        }
+
+        public DataSet getDataVehiculoHabilitado(string placa)
+        {
+            string CadenaConexion = "Conexion";
+            SqlParameter[] Parametros = new SqlParameter[1];
+            DataSet Ds = new DataSet();
+            AD.ConexionSQL ObjSQL = new AD.ConexionSQL();
+            try
+            {
+                string Sql = "PROC_GET_PLACAHABILITADA";
+                Parametros[0] = new SqlParameter("@PLACA", System.Data.SqlDbType.VarChar);
+                Parametros[0].Value = placa;
+
+                ObjSQL.CadenaConexion = CadenaConexion;
+                Ds = ObjSQL.CargarDs(Sql, Parametros);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Ds;
+        }
 
     }
 }

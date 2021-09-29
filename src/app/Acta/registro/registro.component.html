@@ -14,6 +14,30 @@
   <br>
   <div *ngIf="step == 1">
     <h3 class="text-left">Datos del intervenido</h3>
+
+
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">Tipo de Documento</label>
+      <div class="col-sm-5">
+        <select formControlName="selectTipoDocumento"  class="form-select" aria-label="Default select example">
+          <option [ngValue]="null" disabled selected>.:Seleccionar el tipo de documento:.</option>
+          <option *ngFor="let item of arrtipodocumento"  value={{item.idtipodocumento}}>{{item.nombretipodocumento}}</option>
+        </select>
+      </div>
+  </div>
+
+
+  <div class="row mb-3">
+    <label for="colFormLabel" class="col-sm-2 col-form-label">Numero documento</label>
+    <div class="col-sm-4">
+      <input type="text" formControlName="numdocumento"  class="form-control"   placeholder="">
+    </div>
+
+    <div class="col-sm-1">
+      <button type="button" (click)="buscarconductorautorizado();" style="width: 100%" class="btn btn-info">Buscar</button>
+    </div>
+  </div>
+
     <div class="row mb-3">
       <label for="colFormLabel" class="col-sm-2 col-form-label">Apellidos y nombres</label>
       <div class="col-sm-5">
@@ -22,24 +46,6 @@
       </div>
     </div>
 
-    <div class="row mb-3">
-        <label for="colFormLabel" class="col-sm-2 col-form-label">Tipo de Documento</label>
-        <div class="col-sm-5">
-          <select formControlName="selectTipoDocumento"  class="form-select" aria-label="Default select example">
-            <option [ngValue]="null" disabled selected>.:Seleccionar el tipo de documento:.</option>
-            <option *ngFor="let item of arrtipodocumento"  value={{item.idtipodocumento}}>{{item.nombretipodocumento}}</option>
-
-          </select>
-        </div>
-    </div>
-
-
-    <div class="row mb-3">
-      <label for="colFormLabel" class="col-sm-2 col-form-label">Numero documento</label>
-      <div class="col-sm-5">
-        <input type="text" formControlName="numdocumento"  class="form-control"   placeholder="">
-      </div>
-    </div>
 
     
     <div class="row mb-3">
@@ -56,6 +62,13 @@
       </div>
     </div>
 
+    <div class="row mb-3">
+      <label for="colFormLabel" class="col-sm-2 col-form-label">N° de lic. de conducir</label>
+      <div class="col-sm-5">
+        <input type="text" formControlName="numlicenciaconducir"  class="form-control"   placeholder="">
+      </div>
+    </div>
+    
     <div class="row mb-3">
       <label for="colFormLabel" class="col-sm-2 col-form-label">Empresa autorizada</label>
       <div class="col-sm-5">
@@ -75,7 +88,6 @@
 
   <div *ngIf="step == 2" >
     <h3 class="text-left">Datos Vehiculo</h3>
-
     <div class="row mb-3">
       <label for="colFormLabel" class="col-sm-2 col-form-label">Vehiculo autorizado</label>
       <div class="col-sm-5" style="margin-top: 7px;">
@@ -95,18 +107,18 @@
       </div>
     </div>
 
-    <div class="row mb-3">
-      <label for="colFormLabel" class="col-sm-2 col-form-label">N° de lic. de conducir</label>
-      <div class="col-sm-5">
-        <input type="text" formControlName="numlicenciaconducir"  class="form-control"   placeholder="">
-      </div>
-    </div>
+  
 
     <div class="row mb-3">
       <label for="colFormLabel" class="col-sm-2 col-form-label">Placa</label>
-      <div class="col-sm-5">
+      <div class="col-sm-4">
         <input type="text" formControlName="numplaca"  class="form-control"   placeholder="">
       </div>
+
+      <div class="col-sm-1">
+        <button type="button" (click)="buscarplacaautorizada();" style="width: 100%" class="btn btn-info">Buscar</button>
+      </div>
+
     </div>
 
     <div class="row mb-3">
@@ -128,9 +140,34 @@
     <div class="row mb-3">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Fecha infracción</label>
         <div class="col-sm-5">
-            <input class="form-control"  formControlName="fechainfraccion"  type="text" mask="00/00/0000" placeholder="dd/mm/yyyy" />
-   
+            <!-- <input class="form-control"  formControlName="fechainfraccion"  type="text" mask="00/00/0000" placeholder="dd/mm/yyyy" /> -->
+            <dl-date-time-picker 
+            formControlName="fechainfraccion" 
+            startView="day"
+            maxView="year"
+            minView="day"
+            value="{{ selectedDate ?  selectedDate.getDate() : 'g' }}"
+            minuteStep="5"
+            [(ngModel)]="selectedDate"
+            
+        >
+        </dl-date-time-picker>
+        <input 
+        formControlName="fechainfraccionSelect" 
+        disabled="disabled"
+        class="form-control" 
+        type="text" 
+        value="{{ selectedDate ?  (selectedDate.getDate() < 10 ? '0' + selectedDate.getDate() : selectedDate.getDate() )  + '/' + (selectedDate.getMonth()<10 ? '0' + selectedDate.getMonth(): selectedDate.getMonth() ) +'/' + selectedDate.getFullYear() : ''}}"
+        />
+        <!-- <pre>Model: {{ selectedDate ?  selectedDate.getDate() : 'g' | json }}</pre> -->
+        
+        <!-- <pre>Model: {{ selectedDate.split('') | json }}</pre> -->
         </div>
+
+    
+
+
+
     </div>
 
     <div class="row mb-3">

@@ -20,7 +20,7 @@ export class CabeceraComponent implements OnInit {
   ngOnInit(): void {
     //this.registroacta = true;
     this.usuarioactual = this.accesoService.getDatosAcceso();
-
+    // console.log("->", this.usuarioactual)
     if(this.usuarioactual){
       this.perfillogeado = this.usuarioactual.tipousuario.toUpperCase();
       this.registroacta = true;
@@ -32,7 +32,6 @@ export class CabeceraComponent implements OnInit {
 
 
   cerrarSesion(){
-    console.log("cierra")
     localStorage.setItem("datosAcceso", JSON.stringify(""));
     this.router.navigate([""]);
   }

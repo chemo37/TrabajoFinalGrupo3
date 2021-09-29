@@ -7,6 +7,9 @@ import { IClaseCategoria } from '../Modelo/iclase-categoria';
 import { ITIpoInfraccion } from '../Modelo/itipo-infraccion';
 import { ICodigoInfraccion } from '../Modelo/icodigo-infraccion';
 import { IMedidaPreventiva } from '../Modelo/imedida-preventiva';
+import { ListaUsuario } from '../Modelo/lista-usuario';
+import { ConductorAutorizado } from '../Modelo/conductor-autorizado';
+import { VehiculoAutorizado } from '../Modelo/vehiculo-autorizado';
 
 import { environment } from  './../../environments/environment';
 import { tap } from 'rxjs/operators';
@@ -102,5 +105,46 @@ export class DatosService {
         }
       ));
   }
+
+  listausuarios(): Observable<ListaUsuario>{
+
+    return this.http.post<ListaUsuario>( 
+      environment.urlbaseservicioacta + 'api/lista/listausuarios', 
+      {       }
+      ).pipe(tap(
+        (res: ListaUsuario) =>{
+         
+        }
+      ));
+  }
+  
+  getConductorAutorizado(nrodocumentoconsulta: string): Observable<ConductorAutorizado>{
+
+    return this.http.post<ConductorAutorizado>( 
+      environment.urlbaseservicioacta + 'api/lista/getconductorautorizado', 
+      {       
+        nrodocumento : nrodocumentoconsulta
+      }
+      ).pipe(tap(
+        (res: ConductorAutorizado) =>{
+         
+        }
+      ));
+  }
+
+  getVehiculoAutorizado(placaconsulta: string): Observable<VehiculoAutorizado>{
+    
+    return this.http.post<VehiculoAutorizado>( 
+      environment.urlbaseservicioacta + 'api/lista/getplacahabilitada', 
+      {       
+      placa :placaconsulta
+        }
+      ).pipe(tap(
+        (res: VehiculoAutorizado) =>{
+          
+        }
+      ));
+  }
+
 
 }

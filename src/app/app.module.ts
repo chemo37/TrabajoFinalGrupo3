@@ -13,6 +13,7 @@ import { RegistroUsuarioComponent } from './Usuario/registro-usuario/registro-us
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { ListaComponent } from './Acta/lista/lista.component';
 import { CabeceraComponent } from './Layout/cabecera/cabecera.component';
+import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -33,7 +34,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    DlDateTimeDateModule,  // <--- Determines the data type of the model
+    DlDateTimePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

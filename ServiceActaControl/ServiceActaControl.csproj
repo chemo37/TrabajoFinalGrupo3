@@ -220,11 +220,15 @@
     </Compile>
     <Compile Include="Models\ActaRequestModel.cs" />
     <Compile Include="Models\ClaseCategoriaModel.cs" />
+    <Compile Include="Models\ConductorAutorizadoReq.cs" />
+    <Compile Include="Models\ConductorHabilitadoModel.cs" />
     <Compile Include="Models\ListaActaRequest.cs" />
     <Compile Include="Models\ListaCodigoInfraResquestModel.cs" />
     <Compile Include="Models\ListaObsRequest.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PerfilModel.cs" />
+    <Compile Include="Models\PlacaAutorizadaReq.cs" />
+    <Compile Include="Models\PlacaHabilitadaModel.cs" />
     <Compile Include="Models\ReporteActasModel.cs" />
     <Compile Include="Models\RptaGeneralModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
@@ -232,6 +236,7 @@
     <Compile Include="Models\CodigoInfraModel.cs" />
     <Compile Include="Models\TipoInfraccionModel.cs" />
     <Compile Include="Models\TipoDocumentoModel.cs" />
+    <Compile Include="Models\UsuarioListaModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\LoginRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,7 +15,7 @@ export class RegistroUsuarioComponent implements OnInit {
 
   arrtipodocumento : any;
   arrtipoperfil : any;
-
+  arrlistausuarios : any;
   formGroup : FormGroup;
 
   constructor(private datosService : DatosService, 
@@ -28,6 +28,7 @@ export class RegistroUsuarioComponent implements OnInit {
     this.initForm();
     this.listarTipoDocumento();
     this.listarTipoPerfil();
+    this.listarusuarios();
   }
 
 
@@ -44,11 +45,16 @@ export class RegistroUsuarioComponent implements OnInit {
     })
   }
 
+  listarusuarios(){
+    this.datosService.listausuarios().subscribe(result => {
+      // console.log("listausuarios->", result);
+      this.arrlistausuarios = result;
+    })
+  }
 
   listarTipoDocumento(){
 
     this.datosService.listatipodocumento().subscribe(result => {
-      console.log("listatipodocumento->", result);
       this.arrtipodocumento = result;
     })
   }
@@ -56,7 +62,6 @@ export class RegistroUsuarioComponent implements OnInit {
   listarTipoPerfil(){
 
     this.datosService.listatipoperfil().subscribe(result => {
-      console.log("listatipoperfil->", result);
       this.arrtipoperfil = result;
     })
   }
@@ -104,7 +109,6 @@ export class RegistroUsuarioComponent implements OnInit {
   get datosForm() { return this.formGroup.controls; }
 
   cerrarSesion(){
-    console.log("cierra")
     this.router.navigate([""]);
   }
 }

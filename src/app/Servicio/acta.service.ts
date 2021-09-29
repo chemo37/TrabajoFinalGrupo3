@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Idatosacceso } from '../Modelo/idatosacceso';
 import { IRptaGeneral } from '../Modelo/irpta-general';
 import { IActaLista } from '../Modelo/iacta-lista';
+
+
 import { environment } from  './../../environments/environment';
 import { tap } from 'rxjs/operators';
 
@@ -15,7 +17,6 @@ export class ActaService {
   constructor(private http: HttpClient) { }
 
   registroActa(data): Observable<IRptaGeneral>{
-    console.log("REGISTRO ACTITA", data)
     return this.http.post<IRptaGeneral>( 
       environment.urlbaseservicioacta + 'api/acta/registro', 
     {       
@@ -68,5 +69,7 @@ export class ActaService {
       ));
   }
   
+
+
 
 }

@@ -18,7 +18,6 @@ export class IngresarComponent implements OnInit {
   constructor(private router: Router, public accesoService : AccesoService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log("holaaa");
     this.initForm();
     var datoslogin = this.accesoService.getDatosAcceso();
     if(datoslogin){
@@ -43,14 +42,12 @@ export class IngresarComponent implements OnInit {
       this.toastr.error('Verificar los datos ingresados', 'Información!');
       return;
     }else{
-      console.log("todo bien pe");
         let datalogin = {
           usuario : usuarioIngresado,
           clave : pwIngresado
         }
 
       this.accesoService.loginService(datalogin).subscribe(result => {
-        console.log("resultado->", result);
 
         if(result.codigoResultado > 0){
 

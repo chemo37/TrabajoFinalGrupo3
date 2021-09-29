@@ -4,54 +4,47 @@
   <form [formGroup] = 'formGroup' (ngSubmit)="onSubmit()" class="container">
       
 
-    <h2 class="text-left">REGISTRO <span class="text-right" style="float: right;">USUARIOS</span></h2>
+    <h2 class="text-left">REGISTRO</h2>
     <br>
     <div class="row mb-3">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Tipo de documento</label>
-        <div class="col-sm-5">
+        <div class="col-sm-10">
             <select formControlName="seltipodocumento" class="form-select" aria-label="Default select example">
               <option [ngValue]="null" disabled>.:Seleccionar el tipo de documento:.</option>
 
               <option *ngFor="let item of arrtipodocumento"  value={{item.idtipodocumento}}>{{item.nombretipodocumento}}</option>
             </select>
         </div>
-        <div class="col-sm-5">
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>N</th>
-                        <th>USUARIO</th>
-                        <th>PERFIL</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+     
     </div>
 
     <div class="row mb-3">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Número documento</label>
-        <div class="col-sm-5">
-            <input type="text" formControlName="numdocumento"  class="form-control"   placeholder="">
+        <div class="col-sm-10">
+            <input type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" formControlName="numdocumento"  class="form-control"   placeholder="">
         </div>
+
+
+
     </div>
 
     <div class="row mb-3">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Apellidos</label>
-        <div class="col-sm-5">
+        <div class="col-sm-10">
             <input type="text" formControlName="apellidos"  class="form-control"   placeholder="">
         </div>
     </div>
 
     <div class="row mb-3">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Nombres</label>
-        <div class="col-sm-5">
+        <div class="col-sm-10">
             <input type="text" formControlName="nombres" class="form-control"   placeholder="">
         </div>
     </div>
 
     <div class="row mb-3">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Perfil</label>
-        <div class="col-sm-5">
+        <div class="col-sm-10">
           
 
             <select formControlName="perfilusuario"  class="form-select" aria-label="Default select example">
@@ -63,25 +56,49 @@
         </div>
     </div>
 
-    <div class="row mb-3">
+    <div class="row ">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Usuario</label>
-        <div class="col-sm-5">
+        <div class="col-sm-10">
             <input type="text" formControlName="nombreusuario" class="form-control"   placeholder="">
         </div>
     </div>
 
     
-    <div class="row mb-3">
+    <div class="row" style="padding-top:18px">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Contraseña</label>
-        <div class="col-sm-5">
+        <div class="col-sm-10">
             <input type="password" formControlName="claveusuario"  class="form-control"   placeholder="">
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col-sm-7">
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
             <button type="submit" style="width: 100%;"  class="btn btn-primary">Registrar</button>
         </div>
     </div>
-    
+    <br>
+
+    <div class="col-sm-12">
+        <h2 class="text-left">USUARIOS</h2>
+        <br>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>N</th>
+                    <th>NOMBRES</th>
+                    <th>USUARIO</th>
+                    <th>PERFIL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of arrlistausuarios; let i = index"  >
+                    <td>{{i +1 }}</td>
+                    <td>{{item.nombres}}</td>
+                    <td>{{item.usuario}}</td>
+                    <td>{{item.perfil}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
   </form>

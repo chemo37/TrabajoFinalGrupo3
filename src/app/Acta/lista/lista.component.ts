@@ -31,13 +31,11 @@ export class ListaComponent implements OnInit {
 
   listaractas(){
     this.actaService.listaActas().subscribe(result => {
-      console.log("listaActas->", result);
       this.arractas = result;
     })
   }
 
   cerrarSesion(){
-    console.log("cierra")
     this.router.navigate([""]);
   }
 
